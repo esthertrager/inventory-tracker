@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import './App.css';
-import Grid from './Grid.jsx';
-
+import React, { Component } from "react";
+import "./App.css";
+import Grid from "./Grid.jsx";
 
 class App extends Component {
   constructor(props) {
     super(props);
     const newShoe = {
-        brand: '',
-        style: '',
-        size: '',
-        upcid: ''
+      brand: "",
+      style: "",
+      size: "",
+      upcid: ""
     };
-    const squares = []
+    const squares = [];
     for (let i = 0; i < 25; i++) {
       squares.push(newShoe);
     }
@@ -20,11 +19,15 @@ class App extends Component {
       squares
     };
     this.onClickSubmit = this.onClickSubmit.bind(this);
-  };
+  }
 
-  onClickSubmit(shoe) {     
+  onClickSubmit(shoe) {
     let newSquare = shoe;
-    const newSquaresArray = [...this.state.squares.slice(0, shoe.shoeId), newSquare, ...this.state.squares.slice(shoe.shoeId + 1, this.state.squares.length)];
+    const newSquaresArray = [
+      ...this.state.squares.slice(0, shoe.shoeId),
+      newSquare,
+      ...this.state.squares.slice(shoe.shoeId + 1, this.state.squares.length)
+    ];
     this.setState({
       squares: newSquaresArray
     });
@@ -34,10 +37,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header" style={{padding:"15px"}}>Shoe Inventory Tracker</header>
-        <Grid squares={this.state.squares} 
-              onClickSubmit={this.onClickSubmit}
-              onClickDelete={this.onClickDelete}/>
+        <header className="App-header" style={{ padding: "15px" }}>
+          Shoe Inventory Tracker
+        </header>
+        <Grid
+          squares={this.state.squares}
+          onClickSubmit={this.onClickSubmit}
+          onClickDelete={this.onClickDelete}
+        />
       </div>
     );
   }

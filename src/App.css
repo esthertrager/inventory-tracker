@@ -1,13 +1,12 @@
 .App {
   text-align: center;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
-  
+
   font-size: calc(10px + 2vmin);
-  color: #00004C;
+  color: #00004c;
 }
 
 .App-link {
@@ -18,4 +17,3 @@
   text-align: left;
   font-size: calc(10px + 1vmin);
 }
-

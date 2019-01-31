@@ -1,30 +1,30 @@
-import React from 'react';
-import Square from './Square.jsx';
+import React from "react";
+import Square from "./Square.jsx";
 
 class Grid extends React.Component {
   constructor(props) {
     super(props);
 
-  this.onClickSubmit = this.onClickSubmit.bind(this);
-  this.renderSquare = this.renderSquare.bind(this);
+    this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.renderSquare = this.renderSquare.bind(this);
   }
 
   onClickSubmit(shoe) {
-   this.props.onClickSubmit(shoe);
-  };
+    this.props.onClickSubmit(shoe);
+  }
 
   renderSquare(shoeId) {
     return (
-    <Square shoe={this.props.squares[shoeId]} 
-            shoeId={shoeId}
-            onClickSubmit={this.onClickSubmit}
-            onClickDelete={this.onClickDelete}/>
+      <Square
+        shoe={this.props.squares[shoeId]}
+        shoeId={shoeId}
+        onClickSubmit={this.onClickSubmit}
+        onClickDelete={this.onClickDelete}
+      />
     );
-
   }
-  
-  render() {
 
+  render() {
     return (
       <div>
         <table className="table table-bordered">
