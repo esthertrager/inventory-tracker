@@ -8,19 +8,57 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
 class Square extends React.Component {
-  // TODO: remove the constructor
   constructor(props) {
     super(props);
     this.state = {
     	showUserActionPrompt: false,
-    	showAddItemModal: false
+    	showAddItemModal: false,    	
+    	shoe: {
+    		shoeId: props.shoeId,
+    		brand: '',
+    		style: '',
+    		size: '',
+    		upcid: ''
+    	}
     };
     this.onClickSquare = this.onClickSquare.bind(this);
     this.onClickAdd = this.onClickAdd.bind(this);
+    this.onClickEdit = this.onClickEdit.bind(this);
+    this.onClickDelete = this.onClickDelete.bind(this);
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   onClickAdd(e) {
+  	const newShoe = {
+    		shoeId: this.props.shoeId,
+    		brand: '',
+    		style: '',
+    		size: '',
+    		upcid: ''
+    	}
+  	this.setState({
+  		shoe: newShoe,
+  		showUserActionPrompt: false,
+  		showAddItemModal: true
+  	});
+  }
+
+  onClickDelete(e) {
+  	const newShoe = {
+    		shoeId: this.props.shoeId,
+    		brand: '',
+    		style: '',
+    		size: '',
+    		upcid: ''
+    	}
+  	this.setState({
+  		showUserActionPrompt: false,
+  	});
+  	this.props.onClickSubmit(newShoe);
+  }
+
+  onClickEdit(e) {
   	this.setState({
   		showUserActionPrompt: false,
   		showAddItemModal: true
@@ -33,57 +71,73 @@ class Square extends React.Component {
    })
   };
 
-  onClickSubmit(shoeId) {
+  onClickSubmit() {
+   this.props.onClickSubmit(this.state.shoe);
    this.setState({
    	showAddItemModal: false
-   })
+   });
+   console.log(this.state)
   };
 
-  renderAddItemModal() {
+  onInputChange(event, value) {
+  	const shoe = this.state.shoe;
+  	const updatedShoe = Object.assign({}, shoe, value)
+  	this.setState({
+  		shoe: updatedShoe
+  	});
+  }
+
+  renderAddItemModal(shoeId) {
 	  return (
 	    <div className="static-modal">
 	      <Modal.Dialog>
-
 	      <Modal.Body>
-	      	<Form horizontal>
-  <FormGroup controlId="brand">
-    <Col componentClass={ControlLabel} sm={2}>
-      Brand
-    </Col>
-    <Col sm={10}>
-      <FormControl type="text" placeholder="Brand" />
-    </Col>
-  </FormGroup>
-
-  <FormGroup controlId="style">
-    <Col componentClass={ControlLabel} sm={2}>
-      Style
-    </Col>
-    <Col sm={10}>
-      <FormControl type="text" placeholder="Style" />
-    </Col>
-  </FormGroup>
-  <FormGroup controlId="size">
-    <Col componentClass={ControlLabel} sm={2}>
-      Size
-    </Col>
-    <Col sm={10}>
-      <FormControl type="text" placeholder="Size" />
-    </Col>
-  </FormGroup>
-  <FormGroup controlId="upcid">
-    <Col componentClass={ControlLabel} sm={2}>
-      UPC ID
-    </Col>
-    <Col sm={10}>
-      <FormControl type="text" placeholder="UPC ID" />
-    </Col>
-  </FormGroup>
-</Form>
+	      	<form>
+            <div className="form-group">
+             <label>Brand</label>
+		      <input 	
+		      	type="text"
+		      	className="form-control"
+		      	placeholder="Brand"
+		      	onChange={e => this.onInputChange(e, {brand: e.target.value})}
+		      	value={this.state.shoe.brand}
+		      />
+		      </div>
+		      <div className="form-group">
+             <label>Style</label>
+      <input 	
+      	type="text"
+      	className="form-control"
+      	placeholder="Style"
+      	onChange={e => this.onInputChange(e, {style: e.target.value})}
+      	value={this.state.shoe.style}
+      />
+   </div>
+		      <div className="form-group">
+             <label>Size</label>
+      <input 	
+      	type="text"
+      	className="form-control"
+      	placeholder="Size"
+      	onChange={e => this.onInputChange(e, {size: e.target.value})}
+      	value={this.state.shoe.size}
+      />
+     </div>
+		      <div className="form-group">
+             <label>UPC ID</label>
+      <input 	
+      	type="text"
+      	className="form-control"
+      	placeholder="UPC ID"
+      	onChange={e => this.onInputChange(e, {upcid: e.target.value})}
+      	value={this.state.shoe.upcid}
+      />
+   </div>
+	      </form>
 	      </Modal.Body>
 
 	      <Modal.Footer>
-	      <Button onClick={this.onClickSubmit}>Submit</Button>
+	      <Button onClick={(e) => this.onClickSubmit(e, this.value, this.name, this.shoeId)}>Submit</Button>
 	      </Modal.Footer>
 	      </Modal.Dialog>
 	    </div>
@@ -92,16 +146,15 @@ class Square extends React.Component {
 
   renderUserActionPromptModal() {
 	  return (
-	    <div className="static-modal">
-	      <Modal.Dialog>
-
-	      <Modal.Body>Add Shoes</Modal.Body>
-
-	      <Modal.Footer>
-	      <Button onClick={this.onClickAdd}>Add</Button>
-	      </Modal.Footer>
-	      </Modal.Dialog>
-	    </div>
+	      	<div className="static-modal">
+	      		<Modal.Dialog>
+	      		<Modal.Footer>
+	      		<Button onClick={this.onClickAdd}>Add</Button>
+	      		<Button onClick={this.onClickEdit}>Edit</Button>
+	      		<Button onClick={this.onClickDelete}>Delete</Button>
+	      		</Modal.Footer>
+	      		</Modal.Dialog>
+	    	</div>
 	  );
 	}
 
@@ -111,10 +164,10 @@ class Square extends React.Component {
     	<div>
     	{this.state.showUserActionPrompt ? this.renderUserActionPromptModal() : null}
     		<div 
-	    		onClick={() => this.onClickSquare(this.props.shoeId)}
-	    		style={{cursor: "pointer"}}>Click to Add Shoe
+	    		onClick={this.onClickSquare}
+	    		style={{cursor: "pointer"}}>{this.state.shoe.shoeId}
     		</div>
-    	{this.state.showAddItemModal ? this.renderAddItemModal() : null}
+    	{this.state.showAddItemModal ? this.renderAddItemModal(this.props.shoeId) : null}
     	</div>
     );
   }

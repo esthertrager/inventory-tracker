@@ -14,3 +14,8 @@
   color: #61dafb;
 }
 
+.static-modal {
+  text-align: left;
+  font-size: calc(10px + 1vmin);
+}
+
