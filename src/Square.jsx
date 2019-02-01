@@ -8,20 +8,22 @@ class Square extends React.Component {
     this.state = {
       showUserActionPrompt: false,
       showAddItemModal: false,
-      shoe: {
-        shoeId: props.shoeId,
-        brand: "",
-        style: "",
-        size: "",
-        upcid: ""
-      }
+      shoe: props.shoe
     };
     this.onClickSquare = this.onClickSquare.bind(this);
     this.onClickAdd = this.onClickAdd.bind(this);
+    this.onClickClose = this.onClickClose.bind(this);
     this.onClickEdit = this.onClickEdit.bind(this);
     this.onClickDelete = this.onClickDelete.bind(this);
     this.onClickSubmit = this.onClickSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onClickClose() {
+    this.setState({
+      showUserActionPrompt: false,
+      showAddItemModal: false
+    });
   }
 
   onClickAdd(e) {
@@ -62,6 +64,7 @@ class Square extends React.Component {
 
   onClickSquare(shoeId) {
     this.setState({
+      shoe: this.props.shoe,
       showUserActionPrompt: true
     });
   }
@@ -84,8 +87,14 @@ class Square extends React.Component {
 
   renderAddItemModal(shoeId) {
     return (
-      <div className="static-modal">
+      <div>
         <Modal.Dialog>
+          <Modal.Header>
+            <h4 style={{ margin: "0px" }}>Shoe Entry Form</h4>
+            <span className="close" onClick={this.onClickClose}>
+              x
+            </span>
+          </Modal.Header>
           <Modal.Body>
             <form>
               <div className="form-group">
@@ -138,7 +147,6 @@ class Square extends React.Component {
               </div>
             </form>
           </Modal.Body>
-
           <Modal.Footer>
             <Button
               onClick={e =>
@@ -153,10 +161,38 @@ class Square extends React.Component {
     );
   }
 
+  renderShoeInfo(shoe) {
+    if (
+      this.props.shoe.brand === "" &&
+      this.props.shoe.style === "" &&
+      this.props.shoe.size === "" &&
+      this.props.shoe.upcid === ""
+    ) {
+      return <img src="sneaker.png" alt={this.props.shoeId} />;
+    }
+    return (
+      <div>
+        {`${this.props.shoe.brand} ${this.props.shoe.style}`}
+        <br />
+        {`Size:  ${this.props.shoe.size}`}
+        <br />
+        {`UPC ID:  ${this.props.shoe.upcid}`}
+      </div>
+    );
+  }
+
   renderUserActionPromptModal() {
     return (
-      <div className="static-modal">
+      <div>
         <Modal.Dialog>
+          <Modal.Header>
+            <span className="close" onClick={this.onClickClose}>
+              x
+            </span>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Please select what you would like to do:</p>
+          </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.onClickAdd}>Add</Button>
             <Button onClick={this.onClickEdit}>Edit</Button>
@@ -174,7 +210,7 @@ class Square extends React.Component {
           ? this.renderUserActionPromptModal()
           : null}
         <div onClick={this.onClickSquare} style={{ cursor: "pointer" }}>
-          {this.state.shoe.shoeId}
+          {this.renderShoeInfo(this.props.shoe)}
         </div>
         {this.state.showAddItemModal
           ? this.renderAddItemModal(this.props.shoeId)

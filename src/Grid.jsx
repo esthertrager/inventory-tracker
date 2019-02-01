@@ -15,12 +15,14 @@ class Grid extends React.Component {
 
   renderSquare(shoeId) {
     return (
-      <Square
-        shoe={this.props.squares[shoeId]}
-        shoeId={shoeId}
-        onClickSubmit={this.onClickSubmit}
-        onClickDelete={this.onClickDelete}
-      />
+      <td style={{ verticalAlign: "middle" }}>
+        <Square
+          shoe={this.props.squares[shoeId]}
+          shoeId={shoeId}
+          onClickSubmit={this.onClickSubmit}
+          onClickDelete={this.onClickDelete}
+        />
+      </td>
     );
   }
 
@@ -30,39 +32,39 @@ class Grid extends React.Component {
         <table className="table table-bordered">
           <tbody>
             <tr>
-              <td>{this.renderSquare(0)}</td>
-              <td>{this.renderSquare(1)}</td>
-              <td>{this.renderSquare(2)}</td>
-              <td>{this.renderSquare(3)}</td>
-              <td>{this.renderSquare(4)}</td>
+              {this.renderSquare(0)}
+              {this.renderSquare(1)}
+              {this.renderSquare(2)}
+              {this.renderSquare(3)}
+              {this.renderSquare(4)}
             </tr>
             <tr>
-              <td>{this.renderSquare(5)}</td>
-              <td>{this.renderSquare(6)}</td>
-              <td>{this.renderSquare(7)}</td>
-              <td>{this.renderSquare(8)}</td>
-              <td>{this.renderSquare(9)}</td>
+              {this.renderSquare(5)}
+              {this.renderSquare(6)}
+              {this.renderSquare(7)}
+              {this.renderSquare(8)}
+              {this.renderSquare(9)}
             </tr>
             <tr>
-              <td>{this.renderSquare(10)}</td>
-              <td>{this.renderSquare(11)}</td>
-              <td>{this.renderSquare(12)}</td>
-              <td>{this.renderSquare(13)}</td>
-              <td>{this.renderSquare(14)}</td>
+              {this.renderSquare(10)}
+              {this.renderSquare(11)}
+              {this.renderSquare(12)}
+              {this.renderSquare(13)}
+              {this.renderSquare(14)}
             </tr>
             <tr>
-              <td>{this.renderSquare(15)}</td>
-              <td>{this.renderSquare(16)}</td>
-              <td>{this.renderSquare(17)}</td>
-              <td>{this.renderSquare(18)}</td>
-              <td>{this.renderSquare(19)}</td>
+              {this.renderSquare(15)}
+              {this.renderSquare(16)}
+              {this.renderSquare(17)}
+              {this.renderSquare(18)}
+              {this.renderSquare(19)}
             </tr>
             <tr>
-              <td>{this.renderSquare(20)}</td>
-              <td>{this.renderSquare(21)}</td>
-              <td>{this.renderSquare(22)}</td>
-              <td>{this.renderSquare(23)}</td>
-              <td>{this.renderSquare(24)}</td>
+              {this.renderSquare(20)}
+              {this.renderSquare(21)}
+              {this.renderSquare(22)}
+              {this.renderSquare(23)}
+              {this.renderSquare(24)}
             </tr>
           </tbody>
         </table>

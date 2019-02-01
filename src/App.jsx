@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header" style={{ padding: "15px" }}>
-          Shoe Inventory Tracker
+          <h1>Shoe Inventory Tracker</h1>
         </header>
         <Grid
           squares={this.state.squares}
