@@ -74,7 +74,6 @@ class Square extends React.Component {
     this.setState({
       showAddItemModal: false
     });
-    console.log(this.state);
   }
 
   onInputChange(event, value) {

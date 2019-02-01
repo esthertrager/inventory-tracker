@@ -11,27 +11,26 @@ class App extends Component {
       size: "",
       upcid: ""
     };
-    const squares = [];
+    const shoes = [];
     for (let i = 0; i < 25; i++) {
-      squares.push(newShoe);
+      shoes.push(newShoe);
     }
     this.state = {
-      squares
+      shoes
     };
     this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
   onClickSubmit(shoe) {
-    let newSquare = shoe;
-    const newSquaresArray = [
-      ...this.state.squares.slice(0, shoe.shoeId),
-      newSquare,
-      ...this.state.squares.slice(shoe.shoeId + 1, this.state.squares.length)
+    let newShoe = shoe;
+    const newShoesArray = [
+      ...this.state.shoes.slice(0, shoe.shoeId),
+      newShoe,
+      ...this.state.shoes.slice(shoe.shoeId + 1, this.state.shoes.length)
     ];
     this.setState({
-      squares: newSquaresArray
+      shoes: newShoesArray
     });
-    console.log(newSquaresArray);
   }
 
   render() {
@@ -40,11 +39,7 @@ class App extends Component {
         <header className="App-header" style={{ padding: "15px" }}>
           <h1>Shoe Inventory Tracker</h1>
         </header>
-        <Grid
-          squares={this.state.squares}
-          onClickSubmit={this.onClickSubmit}
-          onClickDelete={this.onClickDelete}
-        />
+        <Grid squares={this.state.shoes} onClickSubmit={this.onClickSubmit} />
       </div>
     );
   }
